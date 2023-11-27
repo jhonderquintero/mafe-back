@@ -1,11 +1,11 @@
-import { userController } from 'app/controllers/user.controller'
+import { userController } from '../controllers/user.controller'
 import express from 'express'
 
 // const userController = require('../controllers/user.controller.js')
-export const router = express.Router()
+export const userRoutes = express.Router()
 
 // POST request for creating a User.
-router.post('/register', userController.register)
+userRoutes.post('/register', userController.register)
 
 // POST request for User login.
 // router.post('/login', userController.login)

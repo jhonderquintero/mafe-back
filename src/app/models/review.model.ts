@@ -1,5 +1,14 @@
 import mongoose, { Schema } from 'mongoose'
 
+export interface IReviewModel {
+  text: string
+  rating: number
+  name: string
+  postedAt: Date
+  service: mongoose.Types.ObjectId
+  hidden: boolean
+}
+
 const schema: Schema = new mongoose.Schema({
   text: String,
   rating: { type: Number, min: 1, max: 5 },
@@ -9,4 +18,4 @@ const schema: Schema = new mongoose.Schema({
   hidden: { type: Boolean, default: false }
 })
 
-export const ReviewModel = mongoose.model('Review', schema)
+export const ReviewModel = mongoose.model<IReviewModel>('Review', schema)

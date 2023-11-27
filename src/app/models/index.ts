@@ -1,27 +1,25 @@
-import { dbConfig } from 'app/config/db.config'
+import { dbConfig } from '../config/db.config'
 
-import mongoose from 'mongoose'
-import { ReviewModel } from './review.model'
-import { userModel } from './user.model'
-import { hiringModel } from './hiring.model'
-import { serviceModel } from './service.model'
+import mongoose, { Model } from 'mongoose'
+import { IReviewModel, ReviewModel } from './review.model'
+import { IUserModel, userModel } from './user.model'
+import { IHiringModel, hiringModel } from './hiring.model'
+import { IServiceModel, serviceModel } from './service.model'
 
 mongoose.Promise = global.Promise
 
 interface IDatabaseConfig {
-  mongoose: unknown
   url: string
-  reviews: unknown
-  users: unknown
-  tokens: unknown
-  services: unknown
+  reviews: Model<IReviewModel>
+  users: Model<IUserModel>
+  hiring: Model<IHiringModel>
+  services: Model<IServiceModel>
 }
 
 export const db: IDatabaseConfig = {
-  mongoose: mongoose,
   url: dbConfig.url,
   reviews: ReviewModel,
   users: userModel,
-  tokens: hiringModel,
+  hiring: hiringModel,
   services: serviceModel
 }

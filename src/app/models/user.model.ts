@@ -1,6 +1,16 @@
-import mongoose, { Schema } from 'mongoose'
+import { Schema, model } from 'mongoose'
 
-const schema: Schema = new mongoose.Schema({
+export interface IUserModel {
+  firstName: string
+  lastName: string
+  email: string
+  phoneNumber: string
+  password: string
+  title: string
+  experience: string
+}
+
+const schema = new Schema({
   firstName: String,
   lastName: String,
   email: { type: String, unique: true },
@@ -10,4 +20,4 @@ const schema: Schema = new mongoose.Schema({
   experience: String
 })
 
-export const userModel = mongoose.model('User', schema)
+export const userModel = model<IUserModel>('User', schema)

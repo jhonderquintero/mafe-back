@@ -1,5 +1,20 @@
 import mongoose, { Schema } from 'mongoose'
 
+export interface IServiceModel {
+  name: string
+  description: string
+  duration: number
+  frequency: string
+  cost: number
+  category: string
+  classType: string
+  provider: mongoose.Types.ObjectId | undefined
+  comments: mongoose.Types.ObjectId[]
+  rating: number
+  imageUrl: string
+  published: boolean
+}
+
 const schema: Schema = new mongoose.Schema({
   name: String,
   description: String,
@@ -15,4 +30,4 @@ const schema: Schema = new mongoose.Schema({
   published: { type: Boolean, default: true }
 })
 
-export const serviceModel = mongoose.model('Service', schema)
+export const serviceModel = mongoose.model<IServiceModel>('Service', schema)

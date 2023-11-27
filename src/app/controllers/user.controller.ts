@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { db } from '../models'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import { authConfig } from '../config/auth.config'
-import { sendEmail } from './sendEmail.controller'
-import { db } from 'app/models'
+// import jwt from 'jsonwebtoken'
+// import { authConfig } from '../config/auth.config'
+// import { sendEmail } from './sendEmail.controller'
+import { Request, Response } from 'express'
+
 const User = db.users
 
 const userController = {
@@ -28,7 +30,7 @@ const userController = {
       await user.save()
 
       res.status(201).json({ message: 'User registered successfully!' })
-    } catch (error) {
+    } catch (error: any) {
       res.status(500).json({ message: error.message })
     }
   }
