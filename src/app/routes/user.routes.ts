@@ -11,13 +11,13 @@ userRoutes.post('/register', userController.register)
 userRoutes.post('/login', userController.login)
 
 // // GET request for a specific User by ID.
-// router.get('/:userId', userController.getUserById)
+userRoutes.get('/:userId', userController.getUserById)
 
 // // PUT request to update a specific User by ID.
-// router.put('/:userId', userController.updateUser)
+userRoutes.put('/:userId', userController.updateUser)
 
 // // DELETE request to delete a specific User by ID.
-// router.delete('/:userId', userController.deleteUser)
+userRoutes.delete('/:userId', userController.deleteUser)
 
 // // POST request for initiating password reset process.
-// router.post('/forgot-password', userController.forgotPassword)
+// userRoutes.post('/forgot-password', userController.forgotPassword)
