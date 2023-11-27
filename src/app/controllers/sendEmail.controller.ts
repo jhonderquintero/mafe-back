@@ -1,0 +1,30 @@
+import nodemailer from 'nodemailer'
+import reader from 'fs'
+
+export const sendEmail = async (email: string, subject: string, code: number) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+        user: 'shayna.lakin@ethereal.email',
+        pass: 'TQa1xgbcRyz9t79uG1'
+      }
+    })
+
+    const template = reader.readFileSync('./app/templates/recoveryEmail.html', 'utf8').replace('OTP_CODE', code)
+
+    console.log(template)
+
+    await transporter.sendMail({
+      from: 'shayna.lakin@ethereal.email',
+      to: email,
+      subject,
+      html: template
+    })
+
+    console.log('email sent successfully')
+  } catch (error) {
+    console.log(error, 'email not sent')
+  }
+}
