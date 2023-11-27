@@ -9,7 +9,7 @@ import crypto from 'crypto'
 
 const User = db.users
 
-const userController = {
+export const userController = {
   // Register a new user
   register: async (req: Request, res: Response) => {
     try {
@@ -127,5 +127,3 @@ const userController = {
 //     }
 //   }
 }
-
-export { userController }
