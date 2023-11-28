@@ -30,17 +30,8 @@ export const serviceController = {
 
   listServices: async (req: Request, res: Response) => {
     try {
-      // Extract query parameters for filtering
-      const { category, classType, frequency, rating } = req.query
-      const query = {
-        category: category,
-        classType: classType,
-        frequency: frequency,
-        rating: { $gte: rating }
-      }
-
       // Find services with the constructed query
-      const services = await Service.find(query)
+      const services = await Service.find()
       res.json(services)
     } catch (error: any) {
       res.status(500).json({ message: error.message })
