@@ -6,6 +6,7 @@ import { serviceRoutes } from './app/routes/service.routes'
 import { reviewsRoutes } from './app/routes/review.routes'
 import { db } from './app/models'
 import mongoose from 'mongoose'
+import { hiringRoutes } from './app/routes/hiring.routes'
 
 const app: Express = express()
 
@@ -35,6 +36,8 @@ app.use('/api/users', userRoutes)
 app.use('/api/services', serviceRoutes)
 
 app.use('/api/reviews', reviewsRoutes)
+
+app.use('/api/hirings', hiringRoutes)
 
 app.listen(8080, async () => {
   console.log('Server is running at http://localhost:8080')
