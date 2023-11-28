@@ -8,11 +8,12 @@ export interface IServiceModel {
   cost: number
   category: string
   classType: string
-  provider: mongoose.Types.ObjectId | undefined
-  comments: mongoose.Types.ObjectId[]
+  // provider: mongoose.Types.ObjectId | undefined
+  // comments: mongoose.Types.ObjectId[]
   rating: number
   imageUrl: string
   published: boolean
+  user: mongoose.Types.ObjectId
 }
 
 const schema: Schema = new mongoose.Schema({
@@ -27,7 +28,8 @@ const schema: Schema = new mongoose.Schema({
   // comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   rating: Number,
   imageUrl: String,
-  published: { type: Boolean, default: true }
+  published: { type: Boolean, default: true },
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 })
 
 export const serviceModel = mongoose.model<IServiceModel>('Service', schema)
