@@ -11,7 +11,6 @@ export const reviewController = {
       const newReview = new Review({
         text: req.body.text,
         rating: req.body.rating,
-        name: req.body.name, // Assuming req.user is set after authentication
         service: req.body.service,
         postedAt: new Date()
       })
