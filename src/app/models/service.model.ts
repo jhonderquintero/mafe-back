@@ -23,8 +23,8 @@ const schema: Schema = new mongoose.Schema({
   cost: Number,
   category: String,
   classType: { type: String, enum: ['Individual', 'Group'] },
-  provider: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider' },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+  // provider: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider' },
+  // comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   rating: Number,
   imageUrl: String,
   published: { type: Boolean, default: true }

@@ -2,6 +2,7 @@ import express, { Express } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import { userRoutes } from './app/routes/user.routes'
+import { serviceRoutes } from './app/routes/service.routes'
 import { db } from './app/models'
 import mongoose from 'mongoose'
 
@@ -29,6 +30,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/users', userRoutes)
+
+app.use('/api/services', serviceRoutes)
 
 app.listen(8080, async () => {
   console.log('Server is running at http://localhost:8080')
