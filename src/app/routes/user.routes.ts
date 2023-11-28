@@ -5,7 +5,7 @@ import express from 'express'
 export const userRoutes = express.Router()
 
 // POST request for creating a User.
-userRoutes.post('/register', userController.register)
+userRoutes.post('/', userController.register)
 
 // POST request for User login.
 userRoutes.post('/login', userController.login)
