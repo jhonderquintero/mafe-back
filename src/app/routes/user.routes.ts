@@ -11,7 +11,7 @@ userRoutes.post('/', userController.register)
 userRoutes.post('/login', userController.login)
 
 // // GET request for a specific User by ID.
-userRoutes.get('/:userId', userController.getUserById)
+userRoutes.get('/:email', userController.getUserByEmail)
 
 // // PUT request to update a specific User by ID.
 userRoutes.put('/:userId', userController.updateUser)
