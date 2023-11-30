@@ -3,29 +3,32 @@ import { Request, Response } from 'express'
 import { cloudinaryConfig } from '../config/cloudinary.config'
 import { db } from '../models'
 
-
 cloudinary.config(cloudinaryConfig)
 
-const Images = db.images
+const Services = db.services
 
 export const imageController = {
     uploadImage: async (req: Request, res: Response) => {
         try {
-            const result = await cloudinary.uploader.upload(req.body.imagePath, {
-                folder: 'images',
-                public_id: req.body.publicId,
-            })
-            const image = new Images({
-                imagePath: result.url,
-                publicId: result.public_id,
-                service: req.body.service,
-                alt: result.alt
-            })
-            await image.save()
-            res.json(result)
+            const serviceId = req.body.service;
+            const service = await Services.findById(serviceId);
+            if (!service) {
+                res.status(404).json({ message: 'Service not found' })
+            } else {
+                const result = await cloudinary.uploader.upload(req.body.imagePath, {
+                    folder: 'images',
+                    public_id: req.body.publicId,
+                })
+                service.update({ image: {
+                    url: result.url,
+                    alt: result.alt,
+                    publicId: result.public_id
+                }});
+                res.json(result)
+            }
         } catch (error: any) {
             return res.status(400).json({
-                message: error.message,
+                message: error.message
             })
         }
     },
