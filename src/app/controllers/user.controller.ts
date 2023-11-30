@@ -3,9 +3,7 @@ import { db } from '../models'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { authConfig } from '../config/auth.config'
-// import { sendEmail } from './sendEmail.controller'
 import { Request, Response } from 'express'
-// import crypto from 'crypto'
 
 const User = db.users
 

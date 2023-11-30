@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express'
 import { db } from '../models'
+import { Types } from 'mongoose'
 const Service = db.services
 
 export const serviceController = {
@@ -41,10 +42,11 @@ export const serviceController = {
   // Get a single service by ID
   getServiceById: async (req: Request, res: Response) => {
     try {
+      const serviceId = new Types.ObjectId(req.params.serviceId)
       const service = await Service.aggregate([
         {
           $match: {
-            _id: req.params.serviceId,
+            _id: serviceId,
           }
         },
         {
@@ -58,13 +60,14 @@ export const serviceController = {
         {
           $project: {
             _id: 1,
-            firstName: 1,
-            lastName: 1,
-            email: 1,
-            phoneNumber: 1,
-            role: 1,
-            title: 1,
-            experience: 1,
+            name: 1,
+            description: 1,
+            cost: 1,
+            category: 1,
+            classType: 1,
+            rating: 1,
+            published: 1,
+            user: 1,
             serviceReviews: 1
           }
         }
