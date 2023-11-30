@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import { IImage } from './image.model'
 
 export interface IServiceModel {
   name: string
@@ -8,9 +9,11 @@ export interface IServiceModel {
   cost: number
   category: string
   classType: string
-  // provider: mongoose.Types.ObjectId | undefined
-  // comments: mongoose.Types.ObjectId[]
   rating: number
+  image: IImage
+  ubication: string,
+  promotion: string,
+  experience: string,
   published: boolean
   user: mongoose.Types.ObjectId
 }
@@ -23,10 +26,11 @@ const schema: Schema = new mongoose.Schema({
   cost: Number,
   category: String,
   classType: { type: String, enum: ['Individual', 'Group'] },
-  // provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  // comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   rating: Number,
-  imageUrl: String,
+  image: Object,
+  ubication: String,
+  promotion: String,
+  experience: String,
   published: { type: Boolean, default: true },
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 })
