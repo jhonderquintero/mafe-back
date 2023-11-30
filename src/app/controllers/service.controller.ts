@@ -41,11 +41,38 @@ export const serviceController = {
   // Get a single service by ID
   getServiceById: async (req: Request, res: Response) => {
     try {
-      const service = await Service.findById(req.params.serviceId)
+      const service = await Service.aggregate([
+        {
+          $match: {
+            _id: req.params.serviceId,
+          }
+        },
+        {
+          $lookup: {
+            from: "reviews",
+            localField: "_id",
+            foreignField: "service",
+            as: "serviceReviews"
+          }
+        },
+        {
+          $project: {
+            _id: 1,
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+            phoneNumber: 1,
+            role: 1,
+            title: 1,
+            experience: 1,
+            serviceReviews: 1
+          }
+        }
+      ])
       if (!service) {
         return res.status(404).json({ message: 'Service not found' })
       }
-      res.json(service)
+      res.json(service.at(0))
     } catch (error: any) {
       res.status(500).json({ message: error.message })
     }

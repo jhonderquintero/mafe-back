@@ -24,7 +24,7 @@ const schema: Schema = new mongoose.Schema({
   cost: Number,
   category: String,
   classType: { type: String, enum: ['Individual', 'Group'] },
-  // provider: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider' },
+  // provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   // comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   rating: Number,
   imageUrl: String,

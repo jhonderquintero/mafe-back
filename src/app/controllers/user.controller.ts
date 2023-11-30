@@ -51,7 +51,7 @@ export const userController = {
       }
 
       // Generate JWT token
-      const token = jwt.sign({ userId: user._id }, authConfig.jwtSecret, { expiresIn: '1h' })
+      const token = jwt.sign({ userId: user._id }, authConfig.jwtSecret!, { expiresIn: '1h' })
 
       res.status(200).json({ ...user.toObject(), token })
     } catch (error: any) {
@@ -60,13 +60,40 @@ export const userController = {
   },
 
   // // Get a user by ID
-  getUserById: async (req: Request, res: Response) => {
+  getUserByEmail: async (req: Request, res: Response) => {
     try {
-      const user = await User.findById(req.params.userId)
+      const user = await User.aggregate([
+        {
+          $match: {
+            email: req.params.email,
+          }
+        },
+        {
+          $lookup: {
+            from: "services",
+            localField: "_id",
+            foreignField: "user",
+            as: "userServices"
+          }
+        },
+        {
+          $project: {
+            _id: 1,
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+            phoneNumber: 1,
+            role: 1,
+            title: 1,
+            experience: 1,
+            userServices: 1
+          }
+        }
+      ])
       if (!user) {
         return res.status(404).json({ message: 'User not found' })
       }
-      res.json(user)
+      res.json(user.at(0))
     } catch (error: any) {
       res.status(500).json({ message: error.message })
     }
@@ -91,39 +118,4 @@ export const userController = {
       res.status(500).json({ message: error.message })
     }
   },
-
-  // findUserByEmail: async (req: Request, res: Response) => {
-  //   try {
-  //     // Find the user by email
-  //     const user = await User.findOne({ email: req.body.email })
-  //     if (!user) {
-  //       return res.status(404).json({ message: 'User not found' })
-  //     }
-  //   } catch (error: any) {
-  //     res.status(500).json({ message: error.message })
-  //   }
-  // },
-
-  // // Forgot password
-//   forgotPassword: async (req: Request, res: Response) => {
-//     try {
-//       // Find the user by email
-//       const user = await User.findOne({ email: req.body.email })
-//       if (!user) {
-//         return res.status(404).json({ message: 'User not found' })
-//       }
-
-//       // Generate a reset token
-//       const resetToken = crypto.randomBytes(4).toString('hex')
-
-//       // TODO: add token to user and a way to verify it.
-
-//       // Send email with reset URL (implement this function based on your email service)
-//       await sendEmail(user.email, 'Password Reset Request', resetToken)
-
-//       res.status(200).json({ message: 'Password reset email sent.' })
-//     } catch (error: any) {
-//       res.status(500).json({ message: error.message })
-//     }
-//   }
 }
