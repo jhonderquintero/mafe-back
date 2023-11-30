@@ -11,7 +11,6 @@ export interface IServiceModel {
   // provider: mongoose.Types.ObjectId | undefined
   // comments: mongoose.Types.ObjectId[]
   rating: number
-  imageUrl: string
   published: boolean
   user: mongoose.Types.ObjectId
 }
