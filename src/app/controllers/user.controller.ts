@@ -3,7 +3,6 @@ import { db } from '../models'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { authConfig } from '../config/auth.config'
-import { Types } from 'mongoose'
 // import { sendEmail } from './sendEmail.controller'
 import { Request, Response } from 'express'
 // import crypto from 'crypto'
@@ -52,7 +51,7 @@ export const userController = {
       }
 
       // Generate JWT token
-      const token = jwt.sign({ userId: user._id }, authConfig.jwtSecret, { expiresIn: '1h' })
+      const token = jwt.sign({ userId: user._id }, authConfig.jwtSecret!, { expiresIn: '1h' })
 
       res.status(200).json({ ...user.toObject(), token })
     } catch (error: any) {
