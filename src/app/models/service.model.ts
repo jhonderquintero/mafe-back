@@ -13,10 +13,9 @@ export interface IServiceModel {
   image: IImage
   ubication: string
   promotion: string
-  experience: string
   type: number
   published: boolean
-  user: mongoose.Types.ObjectId
+  userEmail: string
 }
 
 const schema: Schema = new mongoose.Schema({
@@ -31,10 +30,9 @@ const schema: Schema = new mongoose.Schema({
   image: Object,
   ubication: String,
   promotion: String,
-  experience: String,
   type: { type: Number, enum: [0, 1, 2]},
   published: { type: Boolean, default: true },
-  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  userEmail: String
 })
 
 export const serviceModel = mongoose.model<IServiceModel>('Service', schema)

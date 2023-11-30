@@ -17,3 +17,5 @@ serviceRoutes.get('/:serviceId', serviceController.getServiceById)
 
 // DELETE request to delete a service
 serviceRoutes.delete('/:serviceId', serviceController.deleteService)
+
+serviceRoutes.get('/email/:email', serviceController.getServicesByEmail)

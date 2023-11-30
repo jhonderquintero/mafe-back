@@ -81,6 +81,19 @@ export const serviceController = {
     }
   },
 
+  getServicesByEmail: async (req: Request, res: Response) => {
+    try {
+      const services = await Service.find({ userEmail: req.params.email })
+      if (!services) {
+        res.status(404).json({ message: 'Service not found' })
+      } else {
+        res.json(services)
+      }
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
+  },
+
   // Delete a service
   deleteService: async (req: Request, res: Response) => {
     try {
