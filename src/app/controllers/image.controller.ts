@@ -12,7 +12,7 @@ export const imageController = {
         try {
             const serviceId = req.body.service;
             const service = await Services.findById(serviceId);
-            console.log(service)
+
             if (!service) {
                 res.status(404).json({ message: 'Service not found' })
             } else {

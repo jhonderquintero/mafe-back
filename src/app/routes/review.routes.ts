@@ -14,3 +14,5 @@ reviewsRoutes.delete('/:reviewId', reviewController.deleteReview)
 
 // GET request to get reviews by service ID
 reviewsRoutes.get('/service/:serviceId', reviewController.getReviewsByService)
+
+reviewsRoutes.get('/email/:email', reviewController.getReviewsByEmail)
