@@ -8,9 +8,12 @@ export const serviceController = {
   // Create a new service
   createService: async (req: Request, res: Response) => {
     try {
+      req.body.cost = Number(req.body.cost);
       const newService = new Service({ ...req.body })
       await newService.save()
-      res.status(201).json(newService)
+      console.log(newService);
+      // res.status(201).json(newService)
+      res.status(201).json(newService._id)
     } catch (error: any) {
       res.status(500).json({ message: error.message })
     }

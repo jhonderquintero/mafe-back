@@ -19,14 +19,15 @@ export interface IServiceModel {
   userName: string
 }
 
+
 const schema: Schema = new mongoose.Schema({
   name: String,
   description: String,
   duration: String,
-  frequency: { type: String, enum: ['One-time', 'Weekly', 'Monthly'] },
+  frequency: { type: String, enum: ['Diario', 'Semanal', 'Mensual'] },
   cost: Number,
   category: String,
-  classType: { type: String, enum: ['Individual', 'Group'] },
+  classType: { type: String, enum: ['Individual', 'Grupal'] },
   rating: Number,
   image: Object,
   location: String,
