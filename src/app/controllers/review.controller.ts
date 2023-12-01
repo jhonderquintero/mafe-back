@@ -27,7 +27,8 @@ export const reviewController = {
   // Edit a review
   updateReview: async (req: Request, res: Response) => {
     try {
-      const updatedReview = await Review.findByIdAndUpdate(req.params.reviewId, { text: req.body.text }, { new: true })
+      console.log(req.body.published)
+      const updatedReview = await Review.findByIdAndUpdate(req.params.reviewId, { ...req.body} , { new: true })
       if (!updatedReview) {
         return res.status(404).json({ message: 'Review not found' })
       }
