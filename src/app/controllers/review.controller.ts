@@ -13,6 +13,8 @@ export const reviewController = {
         text: req.body.text,
         rating: req.body.rating,
         service: req.body.service,
+        name: req.body.name,
+        published: req.body.published,
         postedAt: new Date()
       })
       await newReview.save()
