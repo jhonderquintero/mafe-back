@@ -14,7 +14,7 @@ export interface IServiceModel {
   location: string
   promotion: string
   type: number  
-  published: boolean
+  published: string
   userEmail: string
   userName: string
 }
@@ -33,7 +33,7 @@ const schema: Schema = new mongoose.Schema({
   location: String,
   promotion: String,
   type: { type: Number, enum: [0, 1, 2]},
-  published: { type: Boolean, default: true },
+  published: { type: String, default: "undefined", enum: ["published", "unpublished", "undefined"]},
   userEmail: String,
   userName: String
 })
