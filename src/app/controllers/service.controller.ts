@@ -2,14 +2,27 @@
 import { Request, Response } from 'express'
 import { db } from '../models'
 import { Types } from 'mongoose'
+import { v2 as cloudinary } from 'cloudinary'
+import { cloudinaryConfig } from '../config/cloudinary.config'
+
 const Service = db.services
+
+cloudinary.config(cloudinaryConfig)
 
 export const serviceController = {
   // Create a new service
   createService: async (req: Request, res: Response) => {
     try {
       req.body.cost = Number(req.body.cost);
+      const result = await cloudinary.uploader.upload(req.body.image, {
+        folder: 'images',
+        public_id: req.body.publicId,
+    })
+
+    req.body.image = "";
+
       const newService = new Service({ ...req.body })
+      newService.image = result.url;
       await newService.save()
       console.log(newService);
       // res.status(201).json(newService)
@@ -38,6 +51,7 @@ export const serviceController = {
       // Find services with the constructed query
       const services = await Service.find()
       res.json(services)
+      console.log(services);
     } catch (error: any) {
       res.status(500).json({ message: error.message })
     }

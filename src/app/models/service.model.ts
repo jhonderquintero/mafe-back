@@ -1,5 +1,9 @@
 import mongoose, { Schema } from 'mongoose'
-import { IImage } from './image.model'
+
+const IImage: Schema = new mongoose.Schema ({
+  url: String,
+  publicId: String
+})
 
 export interface IServiceModel {
   name: string
@@ -10,7 +14,7 @@ export interface IServiceModel {
   category: string
   classType: string
   rating: number
-  image: IImage
+  image: string
   location: string
   promotion: string
   type: number  
@@ -28,7 +32,8 @@ const schema: Schema = new mongoose.Schema({
   category: String,
   classType: String,
   rating: Number,
-  image: Object,
+  image: String,
+  // image: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
   location: String,
   promotion: String,
   type: { type: Number, enum: [0, 1, 2]},

@@ -9,29 +9,29 @@ const Services = db.services
 
 export const imageController = {
     uploadImage: async (req: Request, res: Response) => {
-        try {
-            const serviceId = req.body.service;
-            const service = await Services.findById(serviceId);
+        // try {
+        //     const serviceId = req.body.service;
+        //     const service = await Services.findById(serviceId);
 
-            if (!service) {
-                res.status(404).json({ message: 'Service not found' })
-            } else {
-                const result = await cloudinary.uploader.upload(req.body.imagePath, {
-                    folder: 'images',
-                    public_id: req.body.publicId,
-                })
-                service.image ={
-                    url: result.url,
-                    alt: result.alt,
-                    publicId: result.public_id
-                }
-                service.save()
-                res.json(result)
-            }
-        } catch (error: any) {
-            return res.status(400).json({
-                message: error.message
-            })
-        }
+        //     if (!service) {
+        //         res.status(404).json({ message: 'Service not found' })
+        //     } else {
+        //         const result = await cloudinary.uploader.upload(req.body.imagePath, {
+        //             folder: 'images',
+        //             public_id: req.body.publicId,
+        //         })
+        //         service.image ={
+        //             url: result.url,
+        //             alt: result.alt,
+        //             publicId: result.public_id
+        //         }
+        //         service.save()
+        //         res.json(result)
+        //     }
+        // } catch (error: any) {
+        //     return res.status(400).json({
+        //         message: error.message
+        //     })
+        // }
     },
 }
