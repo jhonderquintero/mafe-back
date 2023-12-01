@@ -12,6 +12,7 @@ export const imageController = {
         try {
             const serviceId = req.body.service;
             const service = await Services.findById(serviceId);
+            console.log(service)
             if (!service) {
                 res.status(404).json({ message: 'Service not found' })
             } else {
@@ -19,11 +20,12 @@ export const imageController = {
                     folder: 'images',
                     public_id: req.body.publicId,
                 })
-                service.update({ image: {
+                service.image ={
                     url: result.url,
                     alt: result.alt,
                     publicId: result.public_id
-                }});
+                }
+                service.save()
                 res.json(result)
             }
         } catch (error: any) {

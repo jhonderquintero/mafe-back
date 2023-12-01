@@ -1,7 +1,6 @@
 import express, { Express } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import { userRoutes } from './app/routes/user.routes'
 import { serviceRoutes } from './app/routes/service.routes'
 import { reviewsRoutes } from './app/routes/review.routes'
 import { db } from './app/models'
@@ -31,8 +30,6 @@ mongoose
 app.get('/', (req, res) => {
   res.status(200).send('Server is running.')
 })
-
-app.use('/api/users', userRoutes)
 
 app.use('/api/services', serviceRoutes)
 
