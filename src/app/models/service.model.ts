@@ -14,26 +14,25 @@ export interface IServiceModel {
   location: string
   promotion: string
   type: number  
-  published: string
+  published: boolean
   userEmail: string
   userName: string
 }
-
 
 const schema: Schema = new mongoose.Schema({
   name: String,
   description: String,
   duration: String,
-  frequency: { type: String, enum: ['Diario', 'Semanal', 'Mensual'] },
+  frequency: String,
   cost: Number,
   category: String,
-  classType: { type: String, enum: ['Individual', 'Grupal'] },
+  classType: String,
   rating: Number,
   image: Object,
   location: String,
   promotion: String,
   type: { type: Number, enum: [0, 1, 2]},
-  published: { type: String, default: "undefined", enum: ["published", "unpublished", "undefined"]},
+  published: { type: Boolean, default: true },
   userEmail: String,
   userName: String
 })

@@ -15,6 +15,7 @@ export const serviceController = {
       // res.status(201).json(newService)
       res.status(201).json(newService._id)
     } catch (error: any) {
+      console.log(error);
       res.status(500).json({ message: error.message })
     }
   },
