@@ -53,5 +53,14 @@ export const hiringController = {
     } catch (error: any) {
       res.status(500).json({ message: error.message })
     }
-  }
+  },
+
+  getHiringsByEmail: async (req: Request, res: Response) => {
+    try {
+      const hirings = await Hiring.find({ customer: req.params.email })
+      res.json(hirings)
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
+  },
 }

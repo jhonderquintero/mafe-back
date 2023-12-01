@@ -14,3 +14,5 @@ hiringRoutes.get('/:hiringId', hiringController.getHiringById)
 
 // GET request to list all hirings for a specific service
 hiringRoutes.get('/service/:serviceId', hiringController.getHiringsByService)
+
+hiringRoutes.get('/email/:email', hiringController.getHiringsByEmail)
