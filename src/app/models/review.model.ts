@@ -5,15 +5,13 @@ export interface IReviewModel {
   rating: number
   postedAt: Date
   service: mongoose.Types.ObjectId
-  hidden: boolean
 }
 
 const schema: Schema = new mongoose.Schema({
   text: String,
   rating: { type: Number, min: 1, max: 5 },
   postedAt: { type: Date, default: Date.now },
-  service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
-  hidden: { type: Boolean, default: false }
+  service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' }
 })
 
 export const ReviewModel = mongoose.model<IReviewModel>('Review', schema)
