@@ -104,8 +104,8 @@ export const serviceController = {
           }
         }
       ])
-      res.json(services)
-      console.log(services);
+      const filteredList = services.filter(obj => obj.published !== false);
+      res.json(filteredList)
     } catch (error: any) {
       res.status(500).json({ message: error.message })
     }
