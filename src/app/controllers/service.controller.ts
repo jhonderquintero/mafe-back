@@ -6,6 +6,7 @@ import { v2 as cloudinary } from 'cloudinary'
 import { cloudinaryConfig } from '../config/cloudinary.config'
 
 const Service = db.services
+const Review = db.reviews
 
 cloudinary.config(cloudinaryConfig)
 
@@ -48,8 +49,61 @@ export const serviceController = {
 
   listServices: async (req: Request, res: Response) => {
     try {
-      // Find services with the constructed query
-      const services = await Service.find()
+      const services = await Service.aggregate([
+        {
+          $lookup: {
+            from: "reviews",
+            localField: "_id",
+            foreignField: "service",
+            as: "serviceReviews"
+          }
+        },
+        {
+          $unwind: {
+            path: "$serviceReviews",
+            preserveNullAndEmptyArrays: true // to include services without reviews
+          }
+        },
+        {
+          $group: {
+            _id: "$_id",
+            name: { $first: "$name" },
+            description: { $first: "$description" },
+            cost: { $first: "$cost" },
+            // other fields
+            rating: { $avg: "$serviceReviews.rating" },
+            service: { $first: "$$ROOT" } // Keep the entire service document
+          }
+        },
+        {
+          $addFields: {
+            rating: { $round: ["$rating", 2] }
+          }
+        },
+        {
+          $replaceRoot: { newRoot: { $mergeObjects: ["$service", { rating: "$rating" }] } }
+        },
+        {
+          $project: {
+            // Define the fields you want to return
+            _id: 1,
+            name: 1,
+            description: 1,
+            cost: 1,
+            rating: 1,
+            frequency: 1,
+            category: 1,
+            classType: 1,
+            image: 1,
+            location: 1,
+            promotion: 1,
+            type: 1,
+            published: 1,
+            userEmail: 1,
+            userName: 1,
+          }
+        }
+      ])
       res.json(services)
       console.log(services);
     } catch (error: any) {

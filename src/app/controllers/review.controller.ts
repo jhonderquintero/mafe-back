@@ -2,6 +2,7 @@
 import { db } from '../models'
 import { Request, Response } from 'express'
 
+
 const Review = db.reviews
 const Service = db.services
 
@@ -54,7 +55,8 @@ export const reviewController = {
   // Get all reviews for a specific service
   getReviewsByService: async (req: Request, res: Response) => {
     try {
-      const reviews = await Review.find({ service: req.params.serviceId })
+      const serviceId = req.params.serviceId;
+      const reviews = await Review.find({ service: serviceId });      
       res.json(reviews)
     } catch (error: any) {
       res.status(500).json({ message: error.message })
