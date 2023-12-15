@@ -65,7 +65,7 @@ export const reviewController = {
 
   getReviewsByEmail: async (req: Request, res: Response) => {
     try {
-      const services = await Service.find({ email: req.params.email }, { _id: 1 });
+      const services = await Service.find({ userEmail: req.params.email });
       const reviews = await Review.find({ service: {$in: services}})
       res.json(reviews)
     } catch (error: any) {
