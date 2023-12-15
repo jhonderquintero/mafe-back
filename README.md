@@ -14,3 +14,45 @@ Se corre como una aplicacion comun de nodejs con el comando:
 npm install
 npm run dev
 ```
+
+### Diagrama de la base de datos (mermaid.js)
+
+```mermaid.js
+erDiagram
+    Service ||--o{ Review : "has many"
+    Service {
+        string name
+        string description
+        string duration
+        string frequency
+        number cost
+        string category
+        string classType
+        number rating
+        string image
+        string location
+        string promotion
+        number type
+        boolean published
+        string userEmail
+        string userName
+    }
+    Review ||--o{ Hiring : "has many"
+    Review {
+        string text
+        string name
+        number rating
+        date postedAt
+        string published
+        objectId service
+    }
+    Hiring {
+        objectId service
+        string status
+        string contactPhone
+        string contactEmail
+        string contactSchedule
+        string messageToProvider
+    }
+
+```
