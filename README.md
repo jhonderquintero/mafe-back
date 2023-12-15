@@ -17,7 +17,7 @@ npm run dev
 
 ### Diagrama de la base de datos (mermaid.js)
 
-```mermaid.js
+```mermaid
 erDiagram
     Service ||--o{ Review : "has many"
     Service {
